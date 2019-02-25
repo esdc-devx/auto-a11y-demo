@@ -1,6 +1,7 @@
 # Automated Accessibilty (A11y) Demo
 
 This project is a test of puppeteer and aXe.
+We are using the ROEWeb Demo site due to the non-production nature of it.
 
 ## Requirements
 
@@ -15,7 +16,6 @@ You will need to setup an account with GCKey.
 export ROEWEB_UNAME=<<USER_NAME>>
 # GCKey Password
 export ROEWEB_PWORD=<<PASSWORD>>
-
 ```
 
 Run `npm i ` to install node modules
