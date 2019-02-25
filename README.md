@@ -1,7 +1,7 @@
 # Automated Accessibilty (A11y) Demo
 
 This project is a test of puppeteer and aXe.
-We are using the ROEWeb Demo site due to the non-production nature of it.
+We are using the ROEWeb Demo site due to the non-production nature of it, and the fact that it's testable.
 
 ## Requirements
 
