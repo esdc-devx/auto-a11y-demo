@@ -2,10 +2,6 @@ const { AxePuppeteer } = require("axe-puppeteer");
 const AxeReports = require("axe-reports");
 const puppeteer = require("puppeteer");
 
-async function gotoPage(page, location) {
-  return page.goto("" + location);
-}
-
 async function a11ytest(page, name) {
   const results = await new AxePuppeteer(page).analyze();
   AxeReports.processResults(results, "csv", "reports/" + name, true);
