@@ -16,7 +16,7 @@ async function runtest(page, name) {
 }
 
 (async () => {
-  const browser = await puppeteer.launch({ headless: true});
+  const browser = await puppeteer.launch({ headless: false });
   console.log("Getting New Page");
   const page = await browser.newPage();
   console.log("Bypassing CSP");
@@ -39,14 +39,15 @@ async function runtest(page, name) {
 
   await screenshot(page, "secondpage");
 
-
   await Promise.all([
     page.waitForSelector("h1[property=name]"), // The promise resolves after navigation has finished
     page.click("input[type=submit]")
   ]);
   await screenshot(page, "thirdpage.png");
 
-  await page.goto( "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/MainMenu.aspx?org_id=-1177590");
+  await page.goto(
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/MainMenu.aspx?org_id=-1177590"
+  );
   await runtest(page, "MainMenu.aspx");
 
   await page.goto(
@@ -58,6 +59,20 @@ async function runtest(page, name) {
     "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Search/Issued?org_id=-1177590&amend=True"
   );
   await runtest(page, "Amend");
+
+  await page.goto(
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/PayrollExtract/Upload?org_id=-1178162"
+  );
+  await runtest(page, "UploadPayroll");
+
+  // const input = page.$('input[id=Files]');
+  // await Promise.all([
+  //   input.uploadFile('./assets/auto-upload-payroll-extract.blk'), //uploadFile thows error 'unkonw function'
+  //   page.select('input[id=FolderId]', '0'),
+  //   page.click('input[name=Declaration]'),
+  //   page.click("button[id=upload]")
+  // ]);
+  // await runtest(page, "UploadPayrollStatus");
 
   await page.close();
   await browser.close();
