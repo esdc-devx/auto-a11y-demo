@@ -3,7 +3,12 @@ const AxeReports = require("axe-reports");
 const puppeteer = require("puppeteer");
 
 async function a11ytest(page, name) {
-  const results = await new AxePuppeteer(page).analyze();
+  const results = await new AxePuppeteer(page)
+    .withTags(['wcag2a','wcag2aa'])
+    .exclude([
+      "ul[role=menubar]" //Exlude MenuBar as it's WET and not accessible
+    ])
+    .analyze();
   AxeReports.processResults(results, "csv", "reports/" + name, true);
 }
 
@@ -16,6 +21,7 @@ async function runtest(page, name) {
 }
 
 (async () => {
+
   const browser = await puppeteer.launch({ headless: true });
   console.log("Getting New Page");
   const page = await browser.newPage();
@@ -61,9 +67,29 @@ async function runtest(page, name) {
   await runtest(page, "Amend");
 
   await page.goto(
+
     "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/PayrollExtract/ViewFiles?org_id=-1178162"
   );
   await runtest(page, "ViewPayroll");
+
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/PayrollExtract/Upload?org_id=-1178162"
+  );
+  await runtest(page, "UploadPayroll");
+
+  // const input = page.$('input[id=Files]');
+  // await Promise.all([
+  //   input.uploadFile('./assets/auto-upload-payroll-extract.blk'), //uploadFile thows error 'unkonw function'
+  //   page.select('input[id=FolderId]', '0'),
+  //   page.click('input[name=Declaration]'),
+  //   page.click("button[id=upload]")
+  // ]);
+  // await runtest(page, "UploadPayrollStatus");
+
+  await page.goto(
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Requests/Prints?org_id=-1178162"
+  );
+  await runtest(page, "RequestedPrintFiles");
+
 
   await page.close();
   await browser.close();
