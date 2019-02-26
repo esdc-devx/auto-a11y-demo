@@ -79,6 +79,11 @@ async function runtest(page, name) {
   // ]);
   // await runtest(page, "UploadPayrollStatus");
 
+  await page.goto(
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Requests/Prints?org_id=-1178162"
+  );
+  await runtest(page, "RequestedPrintFiles");
+
   await page.close();
   await browser.close();
 })();
