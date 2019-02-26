@@ -3,7 +3,12 @@ const AxeReports = require("axe-reports");
 const puppeteer = require("puppeteer");
 
 async function a11ytest(page, name) {
-  const results = await new AxePuppeteer(page).analyze();
+  const results = await new AxePuppeteer(page)
+    .withTags(['wcag2a','wcag2aa'])
+    .exclude([
+      "ul[role=menubar]" //Exlude MenuBar as it's WET and not accessible
+    ])
+    .analyze();
   AxeReports.processResults(results, "csv", "reports/" + name, true);
 }
 
