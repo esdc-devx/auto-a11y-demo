@@ -67,7 +67,7 @@ async function runtest(page, name) {
   await runtest(page, "SelectBusiness");
 
   await page.goto(
-    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Searc>ssued?org_id=" + orgId + "&amend=True"
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Search/Issued?org_id=" + orgId + "&amend=True"
   );
   await runtest(page, "Amend");
 
