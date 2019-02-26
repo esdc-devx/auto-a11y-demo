@@ -12,10 +12,9 @@ Run the following commands to set the environment variables needed for running t
 You will need to setup an account with GCKey.
 
 ```bash
-# GCKey Username
-export ROEWEB_UNAME=<<USER_NAME>>
-# GCKey Password
-export ROEWEB_PWORD=<<PASSWORD>>
+export ROEWEB_UNAME= #Enter in your GCKey Username here
+export ROEWEB_PWORD= #Enter in your GCKey Password Here
+export ROEWEB_ORGID= #Enter your ROE Web Demo Orgganization here
 ```
 
 Run `npm i ` to install node modules
