@@ -21,7 +21,8 @@ async function runtest(page, name) {
 }
 
 (async () => {
-  const browser = await puppeteer.launch({ headless: false });
+
+  const browser = await puppeteer.launch({ headless: true });
   console.log("Getting New Page");
   const page = await browser.newPage();
   console.log("Bypassing CSP");
@@ -66,6 +67,11 @@ async function runtest(page, name) {
   await runtest(page, "Amend");
 
   await page.goto(
+
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/PayrollExtract/ViewFiles?org_id=-1178162"
+  );
+  await runtest(page, "ViewPayroll");
+
     "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/PayrollExtract/Upload?org_id=-1178162"
   );
   await runtest(page, "UploadPayroll");
@@ -83,6 +89,7 @@ async function runtest(page, name) {
     "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Requests/Prints?org_id=-1178162"
   );
   await runtest(page, "RequestedPrintFiles");
+
 
   await page.close();
   await browser.close();
