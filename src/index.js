@@ -16,7 +16,7 @@ async function runtest(page, name) {
 }
 
 (async () => {
-  const browser = await puppeteer.launch({ headless: true});
+  const browser = await puppeteer.launch({ headless: true });
   console.log("Getting New Page");
   const page = await browser.newPage();
   console.log("Bypassing CSP");
@@ -39,14 +39,15 @@ async function runtest(page, name) {
 
   await screenshot(page, "secondpage");
 
-
   await Promise.all([
     page.waitForSelector("h1[property=name]"), // The promise resolves after navigation has finished
     page.click("input[type=submit]")
   ]);
   await screenshot(page, "thirdpage.png");
 
-  await page.goto( "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/MainMenu.aspx?org_id=-1177590");
+  await page.goto(
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/MainMenu.aspx?org_id=-1177590"
+  );
   await runtest(page, "MainMenu.aspx");
 
   await page.goto(
@@ -58,6 +59,11 @@ async function runtest(page, name) {
     "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Search/Issued?org_id=-1177590&amend=True"
   );
   await runtest(page, "Amend");
+
+  await page.goto(
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/PayrollExtract/ViewFiles?org_id=-1178162"
+  );
+  await runtest(page, "ViewPayroll");
 
   await page.close();
   await browser.close();
