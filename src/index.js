@@ -2,6 +2,7 @@ const { AxePuppeteer } = require("axe-puppeteer");
 const AxeReports = require("axe-reports");
 const puppeteer = require("puppeteer");
 
+
 async function a11ytest(page, name) {
   const results = await new AxePuppeteer(page)
     .withTags(['wcag2a','wcag2aa'])
@@ -22,7 +23,11 @@ async function runtest(page, name) {
 
 (async () => {
 
-  const browser = await puppeteer.launch({ headless: true });
+  const orgId = process.env.ROEWEB_ORGID;
+  const username = process.env.ROEWEB_UNAME;
+  const password = process.env.ROEWEB_PWORD;
+
+  const browser = await puppeteer.launch({ headless: true});
   console.log("Getting New Page");
   const page = await browser.newPage();
   console.log("Bypassing CSP");
@@ -35,8 +40,8 @@ async function runtest(page, name) {
   await screenshot(page, "firstpage");
 
   console.log("Entering in Username and Password");
-  await page.type("#token1", process.env.ROEWEB_UNAME);
-  await page.type("#token2", process.env.ROEWEB_PWORD);
+  await page.type("#token1", username);
+  await page.type("#token2", password);
 
   await Promise.all([
     page.waitForNavigation(), // The promise resolves after navigation has finished
@@ -52,27 +57,27 @@ async function runtest(page, name) {
   await screenshot(page, "thirdpage.png");
 
   await page.goto(
-    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/MainMenu.aspx?org_id=-1177590"
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/MainMenu.aspx?org_id=" + orgId
   );
   await runtest(page, "MainMenu.aspx");
 
   await page.goto(
-    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/ROE/SelectBusiness?org_id=-1177590"
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/ROE/SelectBusiness?org_id=" + orgId
   );
   await runtest(page, "SelectBusiness");
 
   await page.goto(
-    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Search/Issued?org_id=-1177590&amend=True"
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Searc>ssued?org_id=" + orgId + "&amend=True"
   );
   await runtest(page, "Amend");
 
   await page.goto(
-
-    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/PayrollExtract/ViewFiles?org_id=-1178162"
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/PayrollExtract/ViewFiles?org_id=" + orgId
   );
   await runtest(page, "ViewPayroll");
 
-    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/PayrollExtract/Upload?org_id=-1178162"
+  await page.goto(
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/PayrollExtract/Upload?org_id=" + orgId
   );
   await runtest(page, "UploadPayroll");
 
@@ -86,7 +91,7 @@ async function runtest(page, name) {
   // await runtest(page, "UploadPayrollStatus");
 
   await page.goto(
-    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Requests/Prints?org_id=-1178162"
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Requests/Prints?org_id=" + orgId
   );
   await runtest(page, "RequestedPrintFiles");
 
