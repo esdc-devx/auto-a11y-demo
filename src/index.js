@@ -109,9 +109,6 @@ async function runtest(page, name) {
 
   await runtest(page,"MoveAllConfirmation");
 
-  await page.goto("https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Requests/Prints?org_id=-" + orgId);
-  await runtest(page, "RequestedPrintFiles");
-
   await page.goto(
     "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Search/Draft?org_id=-" +
       orgId
@@ -121,6 +118,18 @@ async function runtest(page, name) {
   await page.click("button[type=submit]");
   await page.waitForNavigation();
   await runtest(page, "SearchDraftResults");
+
+  await page.goto(
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Search/Issued?org_id=" +
+      orgId
+  );
+  await runtest(page, "SearchIssued");
+  await page.type("#SIN", "123456782");
+  await page.click(
+    "body > div > div.row > main > div.panel.panel-default > div > form > p > button"
+  );
+  await page.waitForNavigation();
+  await runtest(page, "SearchIssuedResults");
 
   await page.close();
   await browser.close();
