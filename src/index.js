@@ -56,33 +56,33 @@ async function runtest(page, name) {
   await screenshot(page, "thirdpage.png");
 
   await page.goto(
-    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/MainMenu.aspx?org_id=" +
-    orgId
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/MainMenu.aspx?org_id=-" +
+      orgId
   );
   await runtest(page, "MainMenu.aspx");
 
   await page.goto(
-    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/ROE/SelectBusiness?org_id=" +
-    orgId
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/ROE/SelectBusiness?org_id=-" +
+      orgId
   );
   await runtest(page, "SelectBusiness");
 
   await page.goto(
-    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Search/Issued?org_id=" +
-    orgId +
-    "&amend=True"
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Search/Issued?org_id=-" +
+      orgId +
+      "&amend=True"
   );
   await runtest(page, "Amend");
 
   await page.goto(
-    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/PayrollExtract/ViewFiles?org_id=" +
-    orgId
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/PayrollExtract/ViewFiles?org_id=-" +
+      orgId
   );
   await runtest(page, "ViewPayroll");
 
   await page.goto(
-    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/PayrollExtract/Upload?org_id=" +
-    orgId
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/PayrollExtract/Upload?org_id=-" +
+      orgId
   );
   await runtest(page, "UploadPayroll");
 
@@ -96,12 +96,16 @@ async function runtest(page, name) {
   // await runtest(page, "UploadPayrollStatus");
 
   await page.goto(
-    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Requests/Prints?org_id=-" + orgId
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Requests/Prints?org_id=-" +
+      orgId
   );
   await runtest(page, "RequestedPrintFiles");
 
   //Move Folder
-  await page.goto("https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Folder/MoveAll?org_id=-" + orgId);
+  await page.goto(
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Folder/MoveAll?org_id=-" +
+      orgId
+  );
   await runtest(page, "MoveAll");
 
   //Move Folder Confirmation Page
@@ -119,8 +123,8 @@ async function runtest(page, name) {
   //For some reason the promis all is needed so the page.type doesn't get jubled into one feild
   //Welcome
   await page.goto(
-    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Assistant/IntroductionWelcome?org_id=" +
-    orgId
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Assistant/IntroductionWelcome?org_id=-" +
+      orgId
   );
   await runtest(page, "AssistantIntroductionWelcome");
   //new roe
@@ -175,9 +179,6 @@ async function runtest(page, name) {
   );
   await page.waitForNavigation();
   await runtest(page, "AssistantEmploymentInfo");
-
-  await page.goto("https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Requests/Prints?org_id=-" + orgId);
-  await runtest(page, "RequestedPrintFiles");
 
   await page.goto(
     "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Search/Draft?org_id=-" +
