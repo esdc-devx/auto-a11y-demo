@@ -2,11 +2,10 @@ const { AxePuppeteer } = require("axe-puppeteer");
 const AxeReports = require("axe-reports");
 const puppeteer = require("puppeteer");
 
-
 async function a11ytest(page, name) {
   console.log("Assessing: " +page.url());
   const results = await new AxePuppeteer(page)
-    .withTags(['wcag2a','wcag2aa'])
+    .withTags(["wcag2a", "wcag2aa"])
     .exclude([
       "ul[role=menubar]" //Exlude MenuBar as it's WET and not accessible
     ])
@@ -23,12 +22,11 @@ async function runtest(page, name) {
 }
 
 (async () => {
-
   const orgId = process.env.ROEWEB_ORGID;
   const username = process.env.ROEWEB_UNAME;
   const password = process.env.ROEWEB_PWORD;
 
-  const browser = await puppeteer.launch({ headless: true});
+  const browser = await puppeteer.launch({ headless: true });
   console.log("Getting New Page");
   const page = await browser.newPage();
   console.log("Bypassing CSP");
@@ -110,6 +108,19 @@ async function runtest(page, name) {
   ]);
 
   await runtest(page,"MoveAllConfirmation");
+
+  await page.goto("https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Requests/Prints?org_id=-" + orgId);
+  await runtest(page, "RequestedPrintFiles");
+
+  await page.goto(
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Search/Draft?org_id=-" +
+      orgId
+  );
+  await runtest(page, "SearchDraft");
+  await page.type("#SIN", "123456782");
+  await page.click("button[type=submit]");
+  await page.waitForNavigation();
+  await runtest(page, "SearchDraftResults");
 
   await page.close();
   await browser.close();
