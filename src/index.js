@@ -122,6 +122,24 @@ async function runtest(page, name) {
   await page.waitForNavigation();
   await runtest(page, "SearchDraftResults");
 
+  await page.goto(
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Requests/Prints?org_id=-" +
+      orgId
+  );
+  await runtest(page, "RequestedPrintFiles");
+
+  await page.goto(
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Delete/Search?org_id=-" +
+      orgId
+  );
+  await runtest(page, "DeleteSearch");
+  //without a SN and SIN I don't know how to test this...
+  // await page.type("#SerialNumber", "???");
+  // await page.type("#SIN", "???");
+  // await page.click("button[type=submit]");
+  // await page.waitForNavigation();
+  // await runtest(page, "DeleteSearchStatus");
+
   await page.close();
   await browser.close();
 })();
