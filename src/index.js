@@ -119,14 +119,20 @@ async function runtest(page, name) {
 
   await runtest(page, "MoveAllConfirmation");
 
-  await page.goto(
-    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Search/Draft?org_id=-" +
-      orgId
-  );
+  await Promise.all([
+    page.goto(
+      "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Search/Draft?org_id=-" +
+        orgId
+    ),
+    page.waitForNavigation() // The promise resolves after navigation has finished
+  ]);
   await runtest(page, "SearchDraft");
+
   await page.type("#SIN", "123456782");
-  await page.click("button[type=submit]");
-  await page.waitForNavigation();
+  await Promise.all([
+    page.click("button[type=submit]"),
+    page.waitForNavigation() // The promise resolves after navigation has finished
+  ]);
   await runtest(page, "SearchDraftResults");
 
   await page.goto(
@@ -134,11 +140,14 @@ async function runtest(page, name) {
       orgId
   );
   await runtest(page, "SearchIssued");
+
   await page.type("#SIN", "123456782");
-  await page.click(
-    "body > div > div.row > main > div.panel.panel-default > div > form > p > button"
-  );
-  await page.waitForNavigation();
+  await Promise.all([
+    page.click(
+      "body > div > div.row > main > div.panel.panel-default > div > form > p > button"
+    ),
+    page.waitForNavigation() // The promise resolves after navigation has finished
+  ]);
   await runtest(page, "SearchIssuedResults");
 
   await page.close();
