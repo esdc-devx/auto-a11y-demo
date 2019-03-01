@@ -119,13 +119,10 @@ async function runtest(page, name) {
 
   await runtest(page, "MoveAllConfirmation");
 
-  await Promise.all([
-    page.goto(
-      "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Search/Draft?org_id=-" +
-        orgId
-    ),
-    page.waitForNavigation() // The promise resolves after navigation has finished
-  ]);
+  await page.goto(
+    "https://srv136.services.gc.ca/ROE-RE/ROEWeb-REWeb/pro/Search/Draft?org_id=-" +
+      orgId
+  );
   await runtest(page, "SearchDraft");
 
   await page.type("#SIN", "123456782");
