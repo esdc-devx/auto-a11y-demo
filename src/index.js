@@ -26,7 +26,7 @@ async function runtest(page, name) {
   const username = process.env.ROEWEB_UNAME;
   const password = process.env.ROEWEB_PWORD;
 
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({ headless: false });
   console.log("Getting New Page");
   const page = await browser.newPage();
   console.log("Bypassing CSP");
