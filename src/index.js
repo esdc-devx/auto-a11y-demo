@@ -1,3 +1,4 @@
+require("../secrets.js");
 const { AxePuppeteer } = require("axe-puppeteer");
 const AxeReports = require("axe-reports");
 const puppeteer = require("puppeteer");
