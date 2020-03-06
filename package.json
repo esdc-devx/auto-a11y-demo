@@ -11,7 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "axe-puppeteer": "^1.0.0",
-    "puppeteer": "^1.12.2"
+    "puppeteer": "^1.20.0"
   },
   "devDependencies": {
     "axe-reports": "^1.1.11",
