@@ -37,6 +37,9 @@ async function runtest(page, name) {
   await page.goto(
     "https://srv136.services.gc.ca/ecas-seca/rascl/Initialize.aspx?Lang=eng&Idp=https://clegc-gckey.gc.ca&AppCode=ROE"
   );
+  await page.click(
+    "body > main > div > div.sp-bx.col-xs-12 > div:nth-child(3) > section:nth-child(2) > div > form > input"
+  );
   await screenshot(page, "firstpage");
 
   console.log("Entering in Username and Password");
